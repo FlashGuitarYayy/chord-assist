@@ -1,0 +1,8 @@
+# dist/ 里的 zip 是要提交的（GitHub 上直接点着下载），只挡杂物
+dist/*
+!dist/*.zip
+
+*.swp
+*~
+.DS_Store
+__pycache__/

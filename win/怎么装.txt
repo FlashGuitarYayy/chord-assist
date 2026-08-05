@@ -1,0 +1,52 @@
+和弦助手 Chord Assist —— Windows 安装说明
+==========================================
+
+三步：
+
+  1. 把这个 zip 整个解压出来（右键 → 全部解压缩）
+  2. 双击 install.bat
+  3. 重启 MuseScore
+
+装完在 MuseScore 里：
+  主页 → 插件，找到「和弦助手」和「和弦助手 · 环境探针」，两个都打勾启用
+  然后从 菜单 → 插件 调用。
+
+卸载：双击 uninstall.bat。
+
+
+手动装（脚本没找到目录的时候）
+------------------------------
+
+把 ChordAssist 这个文件夹整个拷到：
+
+  %USERPROFILE%\Documents\MuseScore4\Plugins\
+
+变成 ...\Plugins\ChordAssist\ChordAssist.qml 这样。MuseScore 会连子目录一起扫，
+所以 core\ 里的 .js 放在里面没问题。
+
+MuseScore 5 就换成 MuseScore5，开发版是 MuseScore4Development / MuseScore5Development。
+文档目录被 OneDrive 接管过的话，是 %USERPROFILE%\OneDrive\Documents\...。
+
+不确定路径的话，MuseScore 里 编辑 → 偏好设置 → 文件夹，「插件」那一栏写的就是。
+
+
+为什么不能直接拖进 MuseScore 窗口
+----------------------------------
+
+MuseScore 4.4 之后确实支持把 .mext 文件拖到窗口里一键安装，但那条路只认新版
+（apiversion 2）扩展 —— 纯 JS 脚本，或者新写法的 QML。
+
+这个插件用的是 apiversion 1（老的 MuseScore {} 插件 API），因为只有 v1 提供
+onScoreStateChanged，也就是「你在谱面上换选中的音，面板跟着刷新」这个功能。
+v1 插件只能放进 Plugins 目录，装不成 .mext。
+
+（依据：muse_framework 里 ExtensionsProvider::run() 判断的是 Action::legacyPlugin，
+而这个标志只有扫 Plugins 目录的 ExtPluginsLoader 才会置位；manifest.json 里写
+apiversion: 1 不起作用。）
+
+
+怎么更新
+--------
+
+以后我改了代码，你重新拷一个 zip 过来，解压，再双击一次 install.bat 就行，
+它会把旧的覆盖掉。改完要重开一次插件面板才生效（MuseScore 不用重启）。

@@ -1,0 +1,6 @@
+# 一律不做换行转换。deploy-windows.ps1 / *.bat / 怎么装.txt 是给 Windows 用的，
+# BOM 和 CRLF 都是必须的（PowerShell 5.1 读没 BOM 的文件按 ANSI 解，中文会乱码），
+# 让 git 自作主张改一下就全毁了。
+* -text
+
+*.zip binary
