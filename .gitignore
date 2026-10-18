@@ -6,3 +6,6 @@ dist/*
 *~
 .DS_Store
 __pycache__/
+
+# 面板里选的界面语言
+settings.json
